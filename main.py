@@ -1,37 +1,42 @@
-gamer = {'name': input('Как вас зовут?\n'),
+alphabet_rus = ('А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З',
+                'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р',
+                'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ',
+                'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я',
+                )
+
+print('Добро пожаловать в игру:\nAmazing trip!')
+
+gamer = {'name': input('Как тебя зовут?\n'),
          'age': int(input('Сколько тебе лет?\n')),
-         'sex': '',
-         'pet_name': '',
+         'sex': input('Какого ты пола?\n'),
+         'pet_name': input('Как зовут твоего питомца?\n'),
+         'desire': False,
          }
 
+answer_desire = input('Любишь ли ты играть - ДА/НЕТ?\n').lower()
+
+if answer_desire == 'да':
+    gamer['desire'] = True
+
 if gamer['age'] < 18:
-    if gamer['name'] == 'Вася':
-        print(gamer['name'], 'тубу нельзя играть, потому что ты Вася и молодой')
+    print('Тебе нельзя играть')
+elif gamer['age'] > 90:
+    print('Эта игра может быть для тебя утомительна')
+    answer_90 = input('Хочешь ли ты играть - ДА/НЕТ?\n').lower()
+    if answer_90 == 'да':
+        answer_90 = input('Ты точно хочешь играть - ДА/НЕТ?\n').lower()
+        if answer_90 == 'да':
+            print('Тогда начнем игру')
+        else:
+            print('До свидания,', gamer['name'])
     else:
-        print('Тебе нельзя играть')
-elif gamer['name'] == 'Петя':
-    print('Ты плохой')
+        print('До свидания,', gamer['name'])
 else:
-    print('Добро пожаловать в Игру')
+    print('Добро пожаловать в Игру,', gamer['name'])
 
-print('Я могу сосчитать твой возраст')
-
-i = 0
-while i <= gamer['age']:
-    print(i)
-    i += 1
-
-    if i > 22:
-        print('замучился считать')
-        break
-else:
-    print('Сработал else в цикле')
-
-print('А еще я могу произнести имя по буквам')
-
-i = 0
-for char in gamer['name']:
-    i += 1
-    if i == 3:
-        continue
-    print(char)
+if 18 <= gamer['age'] <= 90 or gamer['age'] > 90 and answer_90 == 'да':
+    print('Я могу назвать буквы алфавита, которых нет в твоем имени. Вот они:')
+    for char in alphabet_rus:
+        if char not in gamer['name'].upper():
+            print(char, end = ' ')
+print()
